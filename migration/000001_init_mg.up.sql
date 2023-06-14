@@ -14,7 +14,7 @@ CREATE TABLE orders
     oof_shard          varchar(255)
 );
 
-CREATE TABLE delivery
+CREATE TABLE deliveries
 (
     id       serial primary key,
     order_id int references orders (id),
@@ -27,7 +27,7 @@ CREATE TABLE delivery
     email    varchar(255)
 );
 
-CREATE TABLE payment
+CREATE TABLE payments
 (
     id            serial primary key,
     order_id      int references orders (id),

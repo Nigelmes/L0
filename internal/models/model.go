@@ -14,13 +14,14 @@ type Order struct {
 	InternalSignature string    `json:"internal_signature"`
 	CustomerId        string    `json:"customer_id"`
 	DeliveryService   string    `json:"delivery_service"`
-	ShardKey          string    `json:"shardkey"`
+	ShardKey          string    `json:"shardkey" gorm:"column:shardkey"`
 	SmId              int       `json:"sm_id"`
 	DateCreated       time.Time `json:"date_created"`
 	OofShard          string    `json:"oof_shard"`
 }
 
 type Delivery struct {
+	OrderId int    `gorm:"column:order_id"`
 	Name    string `json:"name"`
 	Phone   string `json:"phone"`
 	Zip     string `json:"zip"`
@@ -31,6 +32,7 @@ type Delivery struct {
 }
 
 type Payment struct {
+	OrderId      int    `gorm:"column:order_id"`
 	Transaction  string `json:"transaction"`
 	RequestId    string `json:"request_id"`
 	Currency     string `json:"currency"`
@@ -44,6 +46,7 @@ type Payment struct {
 }
 
 type Item struct {
+	OrderId     int    `gorm:"column:order_id"`
 	ChrtId      int    `json:"chrt_id"`
 	TrackNumber string `json:"track_number"`
 	Price       int    `json:"price"`
