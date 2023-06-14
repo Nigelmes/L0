@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/Nigelmes/L0/internal/config"
 	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
 
 func NewPostgresDB(cfg *config.Config) (*gorm.DB, error) {
