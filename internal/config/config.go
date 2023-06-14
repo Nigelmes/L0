@@ -3,7 +3,7 @@ package config
 import (
 	"github.com/caarlos0/env/v8"
 	"github.com/joho/godotenv"
-	"log"
+	"github.com/sirupsen/logrus"
 )
 
 type Config struct {
@@ -23,11 +23,11 @@ type Config struct {
 func GetConfig() *Config {
 	err := godotenv.Load("../.env")
 	if err != nil {
-		log.Fatalf("unable to load .env file: %e", err)
+		logrus.Fatalf("unable to load .env file: %e", err)
 	}
 	cfg := new(Config)
 	if err = env.Parse(cfg); err != nil {
-		log.Fatal(err)
+		logrus.Fatal(err)
 	}
 	return cfg
 }
