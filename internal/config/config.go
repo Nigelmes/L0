@@ -8,15 +8,15 @@ import (
 
 type Config struct {
 	Database struct {
-		Host     string `env:"DBHOST"`
-		Port     string `env:"DBPORT"`
-		User     string `env:"DBUSERNAME"`
-		Dbname   string `env:"DBNAME"`
-		Password string `env:"DBPASSWORD"`
+		Host     string `env:"DBHOST" envDefault:"localhost"`
+		Port     string `env:"DBPORT" envDefault:"5432"`
+		User     string `env:"DBUSERNAME,required"`
+		Dbname   string `env:"DBNAME,required"`
+		Password string `env:"DBPASSWORD,required"`
 	}
 	Server struct {
-		Host string `env:"SERVERHOST"`
-		Port string `env:"SERVERPORT"`
+		Host string `env:"SERVERHOST" envDefault:"localhost"`
+		Port string `env:"SERVERPORT" envDefault:"8080"`
 	}
 }
 
