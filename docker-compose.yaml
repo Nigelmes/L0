@@ -1,0 +1,16 @@
+services:
+  postgresql-db:
+    container_name: postgres-wb-l0
+    restart: on-failure
+    image: postgres:latest
+    volumes:
+      - postgres_wb:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${DBUSERNAME}
+      POSTGRES_PASSWORD: ${DBPASSWORD}
+      POSTGRES_DB: ${DBNAME}
+    ports:
+      - 5432:5432
+
+volumes:
+  postgres_wb:
