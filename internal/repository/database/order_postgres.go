@@ -1,4 +1,4 @@
-package repository
+package database
 
 import (
 	"github.com/Nigelmes/L0/internal/models"
