@@ -5,6 +5,7 @@ import (
 	"github.com/Nigelmes/L0/internal/repository/cache"
 	"github.com/Nigelmes/L0/internal/repository/database"
 	"github.com/jinzhu/gorm"
+	"github.com/sirupsen/logrus"
 )
 
 type OrderRepo interface {
@@ -35,6 +36,7 @@ func NewRepository(db *gorm.DB) *Repository {
 	for _, item := range items {
 		rch.Set(item)
 	}
+	logrus.Println("сache loaded successfully")
 	return &Repository{
 		OrderRepo: rdb,
 		CacheRepo: rch,

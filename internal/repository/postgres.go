@@ -5,9 +5,10 @@ import (
 	"github.com/Nigelmes/L0/internal/config"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
+	"github.com/sirupsen/logrus"
 )
 
-func NewPostgresDB(cfg *config.Config) (*gorm.DB, error) {
+func NewPostgresDB(cfg *config.Config) *gorm.DB {
 	conn := fmt.Sprintf(
 		"host=%s port=%s user=%s dbname=%s password=%s sslmode=disable",
 		cfg.Database.Host,
@@ -19,11 +20,13 @@ func NewPostgresDB(cfg *config.Config) (*gorm.DB, error) {
 
 	db, err := gorm.Open("postgres", conn)
 	if err != nil {
-		return nil, err
+		logrus.Fatalf("failed to open postgres database: %s", err.Error())
+		return nil
 	}
 	err = db.DB().Ping()
 	if err != nil {
-		return nil, err
+		logrus.Fatalf("error pinging the database:: %s", err.Error())
+		return nil
 	}
-	return db, nil
+	return db
 }
