@@ -20,7 +20,7 @@ func NewPostgresDB(cfg *config.Config) *gorm.DB {
 
 	db, err := gorm.Open("postgres", conn)
 	if err != nil {
-		logrus.Fatalf("failed to open postgres database: %s", err.Error())
+		logrus.Fatalf("error connection database, %s", err.Error())
 		return nil
 	}
 	err = db.DB().Ping()
