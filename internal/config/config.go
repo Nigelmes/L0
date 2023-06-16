@@ -4,6 +4,8 @@ import (
 	"github.com/caarlos0/env/v8"
 	"github.com/joho/godotenv"
 	"github.com/sirupsen/logrus"
+	"os"
+	"regexp"
 )
 
 type Config struct {
@@ -24,8 +26,14 @@ type Config struct {
 	}
 }
 
+var projectDirName = "wbl0"
+
 func GetConfig() *Config {
-	err := godotenv.Load("../.env")
+	re := regexp.MustCompile(`^(.*` + projectDirName + `)`)
+	cwd, _ := os.Getwd()
+	rootPath := re.Find([]byte(cwd))
+
+	err := godotenv.Load(string(rootPath) + `/.env`)
 	if err != nil {
 		logrus.Fatalf("failed to load .env file: %e", err)
 	}
