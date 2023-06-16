@@ -27,3 +27,13 @@ func (c *Cache) GetByUUID(uuid string) (models.Order, bool) {
 	val, ok := c.cacheItem[uuid]
 	return val, ok
 }
+
+func (c *Cache) GetAll() []models.Order { //для теста
+	var ord []models.Order
+	c.mx.RLock()
+	defer c.mx.RUnlock()
+	for _, b := range c.cacheItem {
+		ord = append(ord, b)
+	}
+	return ord
+}

@@ -16,6 +16,7 @@ type OrderRepo interface {
 type CacheRepo interface {
 	Set(order models.Order)
 	GetByUUID(uuid string) (models.Order, bool)
+	GetAll() []models.Order
 }
 
 type Repository struct {
