@@ -54,7 +54,6 @@ func (n *NatsStream) RunNatsSteaming(repo *repository.Repository) {
 	}
 }
 
-func (n *NatsStream) ShutDown() {
-	n.client.Close()
-	logrus.Println("nats service shut down")
+func (n *NatsStream) ShutDown() error {
+	return n.client.Close()
 }
