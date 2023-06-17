@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>wb-l0</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        .bg-light-purple {
+            background-color: #f6c0b1;
+        }
+    </style>
+</head>
+<body class="bg-light-purple">
+<header class="container mt-3">
+    <div class="container text-center">
+        <a href="/" class="btn btn-success btn-lg">Home</a>
+    </div>
+</header>
+<div class="container mt-3">
+    <form method="POST" action="/">
+        <div class="form-group row">
+            <label for="id" class="col-sm-2 col-form-label">Enter UUID:</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" id="id" name="id" required>
+            </div>
+            <div class="col-sm-3">
+                <button type="submit" class="btn btn-success">Get order</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
