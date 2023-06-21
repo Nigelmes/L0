@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"fmt"
 	"github.com/Nigelmes/L0/internal/repository"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -17,7 +16,7 @@ func NewHandler(repo *repository.Repository) *Handler {
 
 func (h *Handler) InitRoutes() *gin.Engine {
 	router := gin.New()
-	router.LoadHTMLGlob("../internal/template/index.html")
+	router.LoadHTMLGlob("internal/template/*")
 	router.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.html", nil)
 	})
@@ -27,6 +26,10 @@ func (h *Handler) InitRoutes() *gin.Engine {
 
 func (h *Handler) home(c *gin.Context) {
 	uuid := c.PostForm("id")
-	fmt.Printf("%T   %s", uuid, uuid)
-	c.JSON(http.StatusOK, gin.H{"uuid": uuid})
+	order, ok := h.repo.CacheRepo.GetByUUID(uuid)
+	if !ok {
+		c.HTML(http.StatusBadRequest, "error.html", nil)
+		return
+	}
+	c.HTML(http.StatusOK, "order.html", order)
 }
