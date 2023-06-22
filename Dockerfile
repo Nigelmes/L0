@@ -11,7 +11,8 @@ FROM alpine:latest as production
 WORKDIR /app
 RUN apk add --no-cache postgresql-client
 ENV GIN_MODE release
-COPY .env ./
+COPY .env wait-postgres.sh ./
 COPY ./internal/template ./internal/template
+RUN chmod +x wait-postgres.sh
 COPY --from=builder /app/wbl0 .
 CMD ["./wbl0"]

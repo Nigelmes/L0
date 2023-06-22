@@ -17,18 +17,18 @@ services:
     restart: on-failure
     image: nats-streaming:latest
     ports:
-      - "4222:4222"
-      - "8222:8222"
+      - 4222:4222
+      - 8222:8222
     command:
       - "--cluster_id"
       - ${STANCLUSTERID}
 
-  wbl0:
+  wbl0-app:
     container_name: wbl0-golang-app
     build: ./
-    command: ./wbl0
+    command: ./wait-postgres.sh db ./wbl0
     ports:
-      - 80:${SERVERPORT}
+      - ${SERVERPORT}:${SERVERPORT}
     depends_on:
       - postgresql-db
       - nats-streaming
