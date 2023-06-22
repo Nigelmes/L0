@@ -22,7 +22,7 @@ type NatsStream struct {
 func NewNatsStream(cfg *config.Config) *NatsStream {
 	sc, err := stan.Connect(
 		cfg.NatsStreamingCfg.StanClusterId, cfg.NatsStreamingCfg.ClientId,
-		stan.NatsURL(stan.DefaultNatsURL),
+		stan.NatsURL("nats://nats-streaming:4222"),
 	)
 	if err != nil {
 		logrus.Fatalf("error connection nats-streaming, %s", err.Error())

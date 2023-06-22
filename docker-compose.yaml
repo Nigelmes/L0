@@ -23,5 +23,17 @@ services:
       - "--cluster_id"
       - ${STANCLUSTERID}
 
+  wbl0:
+    container_name: wbl0-golang-app
+    build: ./
+    command: ./wbl0
+    ports:
+      - 80:${SERVERPORT}
+    depends_on:
+      - postgresql-db
+      - nats-streaming
+    env_file:
+      - .env
+
 volumes:
   postgres_wb:

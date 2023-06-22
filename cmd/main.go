@@ -8,6 +8,7 @@ import (
 	"github.com/Nigelmes/L0/internal/server"
 	"github.com/Nigelmes/L0/internal/streamingservice"
 	"github.com/sirupsen/logrus"
+	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
@@ -26,14 +27,9 @@ func main() {
 	sc := streamingservice.NewNatsStream(cfg)
 	sc.RunNatsSteaming(repo)
 
-	//a := repo.CacheRepo.GetAlls()
-	//for _, b := range a{
-	//	fmt.Println(b)
-	//}
-
 	server := new(server.Server)
 	go func() {
-		if err := server.Run(cfg, handlers.InitRoutes()); err != nil {
+		if err := server.Run(cfg, handlers.InitRoutes()); err != nil && err != http.ErrServerClosed {
 			logrus.Fatalf("error running http server: %s", err.Error())
 		}
 	}()
@@ -43,11 +39,11 @@ func main() {
 	signal.Notify(quit, syscall.SIGTERM, syscall.SIGINT)
 	<-quit
 
-	if err := sc.ShutDown(); err != nil {
-		logrus.Errorf("error occured on nats streaming shutting down: %s", err.Error())
-	}
 	if err := server.ShutDown(context.Background()); err != nil {
 		logrus.Errorf("error occured on server shutting down: %s", err.Error())
+	}
+	if err := sc.ShutDown(); err != nil {
+		logrus.Errorf("error occured on nats streaming shutting down: %s", err.Error())
 	}
 	if err := db.Close(); err != nil {
 		logrus.Errorf("error occured on db connection close : %s", err.Error())
