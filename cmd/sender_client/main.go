@@ -36,6 +36,6 @@ func main() {
 		if err != nil {
 			logrus.Error(err)
 		}
-		logrus.Printf("message [%d] send succesfull", idx)
+		logrus.Printf("message [%d] send succesfull,  uuid:[%s]", idx, order.OrderUid)
 	}
 }
