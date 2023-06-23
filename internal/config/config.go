@@ -8,14 +8,14 @@ import (
 
 type Config struct {
 	Database struct {
-		Host     string `env:"DBHOST" envDefault:"localhost"`
+		Host     string `env:"DBHOST" envDefault:"postgresql-db"`
 		Port     string `env:"DBPORT" envDefault:"5432"`
 		User     string `env:"DBUSERNAME,required"`
 		Dbname   string `env:"DBNAME,required"`
 		Password string `env:"DBPASSWORD,required"`
 	}
 	Server struct {
-		Host string `env:"SERVERHOST" envDefault:"localhost"`
+		Host string `env:"SERVERHOST" envDefault:"0.0.0.0"`
 		Port string `env:"SERVERPORT" envDefault:"8080"`
 	}
 	NatsStreamingCfg struct {
